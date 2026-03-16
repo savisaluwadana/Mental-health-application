@@ -10,6 +10,7 @@ import {
 } from "react";
 import {
   activityFeed as seedActivityFeed,
+  chatMessages as seedChatMessages,
   checkIns as seedCheckIns,
   clients as seedClients,
   goals as seedGoals,
@@ -19,6 +20,7 @@ import {
   therapists as seedTherapists,
   type ActivityItem,
   type CheckIn,
+  type ChatMessage,
   type ClientProfile,
   type ClinicalNote,
   type Goal,
@@ -52,6 +54,7 @@ interface AppContextType {
   goals: Goal[];
   notes: ClinicalNote[];
   activityFeed: ActivityItem[];
+  chatMessages: ChatMessage[];
   activeClientId: string;
   activeTherapistId: string;
   addMoodLog: (input: { clientId: string; score: number; note?: string }) => void;
@@ -60,6 +63,7 @@ interface AppContextType {
   updateGoal: (goalId: string, updates: Partial<Goal>) => void;
   addSession: (input: AddSessionInput) => void;
   updateSessionStatus: (sessionId: string, status: SessionStatus) => void;
+  sendChatMessage: (input: { sessionId: string; content: string }) => void;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -78,6 +82,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [goals, setGoals] = useState<Goal[]>(seedGoals);
   const [notes, setNotes] = useState<ClinicalNote[]>(seedNotes);
   const [activityFeed, setActivityFeed] = useState<ActivityItem[]>(seedActivityFeed);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(seedChatMessages);
 
   const toggleRole = useCallback(() => {
     setRole((prev) => (prev === "client" ? "practitioner" : "client"));
@@ -164,6 +169,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSessions((prev) => prev.map((session) => (session.id === sessionId ? { ...session, status } : session)));
   }, []);
 
+  const sendChatMessage = useCallback((input: { sessionId: string; content: string }) => {
+    const senderName = role === "client"
+      ? clients.find((client) => client.id === "c1")?.name ?? "Client"
+      : therapists.find((therapist) => therapist.id === "t1")?.name ?? "Practitioner";
+
+    const item: ChatMessage = {
+      id: makeId("chat"),
+      sessionId: input.sessionId,
+      senderRole: role,
+      senderName,
+      content: input.content,
+      timestamp: new Date().toISOString(),
+    };
+
+    setChatMessages((prev) => [...prev, item]);
+  }, [role, clients, therapists]);
+
   const value = useMemo<AppContextType>(
     () => ({
       role,
@@ -177,6 +199,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       goals,
       notes,
       activityFeed,
+      chatMessages,
       activeClientId: "c1",
       activeTherapistId: "t1",
       addMoodLog,
@@ -185,6 +208,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       updateGoal,
       addSession,
       updateSessionStatus,
+      sendChatMessage,
     }),
     [
       role,
@@ -196,12 +220,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
       goals,
       notes,
       activityFeed,
+      chatMessages,
       addMoodLog,
       submitCheckIn,
       addNote,
       updateGoal,
       addSession,
       updateSessionStatus,
+      sendChatMessage,
     ],
   );
 

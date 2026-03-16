@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { Drawer } from "@/components/ui/Drawer";
 import { useAppContext } from "@/context/AppContext";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const filters = ["all", "upcoming", "completed", "missed"] as const;
@@ -88,6 +89,14 @@ export default function ClientSessionsPage() {
                 <div className="flex items-center gap-2">
                   <Badge label={session.status} variant={session.status} />
                   <Badge label={session.type} variant={session.type === "Video" ? "video" : "inperson"} />
+                  {session.status === "upcoming" && (
+                    <Link
+                      href={`/client/sessions/${session.id}/meet`}
+                      className="rounded-lg bg-sage-600 px-3 py-1.5 text-sm font-medium text-white"
+                    >
+                      Join Meet
+                    </Link>
+                  )}
                   <button
                     onClick={() => setSelectedSessionId(session.id)}
                     className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
@@ -126,6 +135,14 @@ export default function ClientSessionsPage() {
             <p>
               <span className="font-medium">Notes:</span> {selected.note ?? "No notes available."}
             </p>
+            {selected.status === "upcoming" && (
+              <Link
+                href={`/client/sessions/${selected.id}/meet`}
+                className="inline-block rounded-lg bg-sage-600 px-3 py-2 text-sm font-medium text-white"
+              >
+                Join secure meetup
+              </Link>
+            )}
           </div>
         ) : null}
       </Drawer>

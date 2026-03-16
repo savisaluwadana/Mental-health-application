@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/Card";
 import { Modal } from "@/components/ui/Modal";
 import { useAppContext } from "@/context/AppContext";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -106,6 +107,11 @@ export default function PractitionerSchedulePage() {
                       <div className="rounded-lg bg-sage-100 p-2 text-xs text-slate-700">
                         <p className="font-medium">{client?.name}</p>
                         <p>{block.startTime} - {block.endTime}</p>
+                        {block.status === "upcoming" && (
+                          <Link href={`/practitioner/sessions/${block.id}/meet`} className="mt-1 inline-block font-medium text-sage-700 underline">
+                            Open meet
+                          </Link>
+                        )}
                       </div>
                     ) : null}
                   </div>

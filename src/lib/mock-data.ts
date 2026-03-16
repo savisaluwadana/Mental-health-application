@@ -80,6 +80,15 @@ export interface ActivityItem {
   message: string;
 }
 
+export interface ChatMessage {
+  id: string;
+  sessionId: string;
+  senderRole: Role;
+  senderName: string;
+  content: string;
+  timestamp: string;
+}
+
 const today = new Date();
 
 const toISO = (daysAgo: number) => {
@@ -312,5 +321,24 @@ export const activityFeed: ActivityItem[] = [
     date: "2026-03-09",
     type: "session",
     message: "Kavindi rescheduled a session to 18 Mar.",
+  },
+];
+
+export const chatMessages: ChatMessage[] = [
+  {
+    id: "cm1",
+    sessionId: "s3",
+    senderRole: "practitioner",
+    senderName: "Pranesh Silva",
+    content: "Hi Amara, we can start with a short breathing reset once you join.",
+    timestamp: "2026-03-16T13:55:00.000Z",
+  },
+  {
+    id: "cm2",
+    sessionId: "s3",
+    senderRole: "client",
+    senderName: "Amara Perera",
+    content: "Perfect, I am joining in a minute.",
+    timestamp: "2026-03-16T13:57:00.000Z",
   },
 ];

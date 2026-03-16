@@ -60,9 +60,14 @@ export default function PractitionerDashboardPage() {
                   {nextSession.startTime} - {nextSession.endTime} • {clients.find((c) => c.id === nextSession.clientId)?.name}
                 </p>
               </div>
-              <Link href="/practitioner/schedule" className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
-                Open schedule
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link href="/practitioner/schedule" className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                  Open schedule
+                </Link>
+                <Link href={`/practitioner/sessions/${nextSession.id}/meet`} className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
+                  Join meet
+                </Link>
+              </div>
             </div>
           ) : (
             <p className="mt-2 text-sm text-slate-600">No upcoming sessions scheduled.</p>
@@ -88,8 +93,13 @@ export default function PractitionerDashboardPage() {
               return (
                 <div key={session.id} className="rounded-lg bg-slate-50 px-3 py-2">
                   <p className="font-medium text-slate-700">{session.startTime} • {client?.name}</p>
-                  <div className="mt-1">
+                  <div className="mt-1 flex items-center gap-2">
                     <Badge label={session.status} variant={session.status} />
+                    {session.status === "upcoming" && (
+                      <Link href={`/practitioner/sessions/${session.id}/meet`} className="rounded-md border border-slate-300 bg-white px-2 py-1 text-xs text-slate-700">
+                        Meet
+                      </Link>
+                    )}
                   </div>
                 </div>
               );

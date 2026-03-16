@@ -108,9 +108,14 @@ export default function ClientDashboardPage() {
                 {upcoming.startTime} - {upcoming.endTime} • {upcoming.type} with {therapistName}
               </p>
             </div>
-            <Link href="/client/sessions" className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
-              View sessions
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link href="/client/sessions" className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700">
+                View sessions
+              </Link>
+              <Link href={`/client/sessions/${upcoming.id}/meet`} className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
+                Join meet
+              </Link>
+            </div>
           </div>
         ) : (
           <p className="mt-2 text-sm text-slate-600">No upcoming sessions. Schedule one to stay consistent.</p>
