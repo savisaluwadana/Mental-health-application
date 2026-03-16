@@ -36,8 +36,8 @@ export function TopNav() {
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-stone-50/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
         <div>
-          <p className="text-xl font-semibold tracking-tight text-slate-800">Kalm.lk</p>
-          <p className="text-xs text-slate-500">Mental Wellness Platform</p>
+          <p className="text-xl font-semibold tracking-tight text-slate-800">MindCare Cloud</p>
+          <p className="text-xs text-slate-500">Mental Health SaaS Platform</p>
         </div>
 
         <div className="flex items-center gap-3">

@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kalm.lk — Mental Wellness Platform",
-  description: "Calm and connected mental wellness workspace for clients and practitioners.",
+  title: "MindCare Cloud — Mental Health SaaS Platform",
+  description: "A calm and connected mental health workspace for clients and practitioners.",
 };
 
 export default function RootLayout({
