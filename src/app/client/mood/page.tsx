@@ -48,8 +48,10 @@ export default function ClientMoodPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-slate-800">Mood Tracker</h1>
+    <div className="mx-auto w-full max-w-6xl space-y-6">
+      <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Mood Tracker</h1>
+      </div>
 
       <Card className="space-y-4">
         <p className="font-medium text-slate-800">How are you feeling right now?</p>
@@ -61,7 +63,7 @@ export default function ClientMoodPage() {
                 key={emoji}
                 onClick={() => setScore(value)}
                 className={`rounded-full px-3 py-2 text-2xl ${
-                  value === score ? "bg-sage-100 ring-2 ring-sage-600" : "bg-slate-100"
+                  value === score ? "bg-sage-100 ring-2 ring-sage-600" : "bg-slate-100 hover:bg-slate-200"
                 }`}
               >
                 {emoji}
@@ -76,7 +78,7 @@ export default function ClientMoodPage() {
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
         />
         <button
-          className="rounded-md bg-sage-600 px-4 py-2 text-sm font-medium text-white"
+          className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm"
           onClick={() => {
             addMoodLog({ clientId: activeClientId, score, note });
             setNote("");

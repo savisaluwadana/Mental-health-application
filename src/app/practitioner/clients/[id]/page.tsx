@@ -32,10 +32,10 @@ export default function PractitionerClientDetailPage() {
   }
 
   return (
-    <div className="space-y-5">
-      <section className="flex items-center justify-between">
+    <div className="mx-auto w-full max-w-6xl space-y-5">
+      <section className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-800">{client.name}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-slate-800">{client.name}</h1>
           <p className="text-sm text-slate-600">Age {client.age} • Joined {client.joinedAt}</p>
         </div>
         <Badge label={client.status} variant={client.status === "attention" ? "missed" : "upcoming"} />
@@ -46,8 +46,10 @@ export default function PractitionerClientDetailPage() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`rounded-full px-3 py-1.5 text-sm ${
-              activeTab === tab ? "bg-sage-600 text-white" : "bg-slate-200 text-slate-700"
+            className={`rounded-full border px-3 py-1.5 text-sm ${
+              activeTab === tab
+                ? "border-sage-600 bg-sage-600 text-white"
+                : "border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
             }`}
           >
             {tab}
@@ -66,7 +68,7 @@ export default function PractitionerClientDetailPage() {
       {activeTab === "Sessions" && (
         <Card className="space-y-2 text-sm">
           {clientSessions.map((session) => (
-            <div key={session.id} className="rounded-md bg-slate-50 px-3 py-2 text-slate-700">
+            <div key={session.id} className="rounded-lg bg-slate-50 px-3 py-2 text-slate-700">
               <p className="font-medium">{session.date} • {session.startTime}</p>
               <p>{therapistById.get(session.therapistId)} • {session.type}</p>
               <Badge label={session.status} variant={session.status} />
@@ -99,7 +101,7 @@ export default function PractitionerClientDetailPage() {
       {activeTab === "Notes" && (
         <Card className="space-y-2">
           {clientNotes.map((note) => (
-            <div key={note.id} className="rounded-md bg-slate-50 px-3 py-2">
+            <div key={note.id} className="rounded-lg bg-slate-50 px-3 py-2">
               <p className="text-sm text-slate-700">{note.content}</p>
               <p className="text-xs text-slate-500">{note.date}</p>
             </div>

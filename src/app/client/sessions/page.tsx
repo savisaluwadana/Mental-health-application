@@ -27,8 +27,10 @@ export default function ClientSessionsPage() {
   const selected = clientSessions.find((item) => item.id === selectedSessionId);
 
   return (
-    <div className="space-y-5">
-      <h1 className="text-2xl font-semibold text-slate-800">My Sessions</h1>
+    <div className="mx-auto w-full max-w-6xl space-y-5">
+      <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">My Sessions</h1>
+      </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
         <Card>
@@ -54,8 +56,10 @@ export default function ClientSessionsPage() {
           <button
             key={item}
             onClick={() => setFilter(item)}
-            className={`rounded-full px-3 py-1.5 text-sm capitalize ${
-              filter === item ? "bg-sage-600 text-white" : "bg-slate-200 text-slate-700"
+            className={`rounded-full border px-3 py-1.5 text-sm capitalize ${
+              filter === item
+                ? "border-sage-600 bg-sage-600 text-white"
+                : "border-slate-300 bg-white text-slate-700 hover:bg-slate-100"
             }`}
           >
             {item}
@@ -86,7 +90,7 @@ export default function ClientSessionsPage() {
                   <Badge label={session.type} variant={session.type === "Video" ? "video" : "inperson"} />
                   <button
                     onClick={() => setSelectedSessionId(session.id)}
-                    className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700"
+                    className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50"
                   >
                     View Details
                   </button>

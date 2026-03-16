@@ -10,8 +10,10 @@ export default function PractitionerClientsPage() {
   const { clients, moods } = useAppContext();
 
   return (
-    <div className="space-y-5">
-      <h1 className="text-2xl font-semibold text-slate-800">Clients</h1>
+    <div className="mx-auto w-full max-w-6xl space-y-5">
+      <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Clients</h1>
+      </div>
 
       <div className="space-y-3">
         {clients.map((client) => {
@@ -42,7 +44,7 @@ export default function PractitionerClientsPage() {
                     label={client.status}
                     variant={client.status === "attention" ? "missed" : client.status === "improving" ? "upcoming" : "completed"}
                   />
-                  <Link href={`/practitioner/clients/${client.id}`} className="rounded-md border px-3 py-1.5 text-sm text-slate-700">
+                  <Link href={`/practitioner/clients/${client.id}`} className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50">
                     View
                   </Link>
                 </div>

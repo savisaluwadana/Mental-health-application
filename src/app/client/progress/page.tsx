@@ -28,8 +28,10 @@ export default function ClientProgressPage() {
     .sort((a, b) => a.date.localeCompare(b.date));
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-slate-800">Progress</h1>
+    <div className="mx-auto w-full max-w-6xl space-y-6">
+      <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Progress</h1>
+      </div>
 
       <Card>
         <p className="mb-3 text-sm text-slate-500">Active goals</p>

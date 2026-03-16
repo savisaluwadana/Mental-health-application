@@ -16,10 +16,10 @@ export default function PractitionerDashboardPage() {
   const flaggedClients = clients.filter((client) => client.flags.length > 0);
 
   return (
-    <div className="space-y-6">
-      <section>
-        <h1 className="text-2xl font-semibold text-slate-800">Practitioner Dashboard</h1>
-        <p className="text-sm text-slate-600">Welcome back, {therapist?.name}</p>
+    <div className="mx-auto w-full max-w-6xl space-y-6">
+      <section className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Practitioner Dashboard</h1>
+        <p className="mt-1 text-sm text-slate-600">Welcome back, {therapist?.name}</p>
       </section>
 
       <div className="grid gap-4 md:grid-cols-3">
@@ -45,7 +45,7 @@ export default function PractitionerDashboardPage() {
             {todaysSessions.map((session) => {
               const client = clients.find((item) => item.id === session.clientId);
               return (
-                <div key={session.id} className="rounded-md bg-slate-50 px-3 py-2">
+                <div key={session.id} className="rounded-lg bg-slate-50 px-3 py-2">
                   <p className="font-medium text-slate-700">{session.startTime} • {client?.name}</p>
                   <div className="mt-1">
                     <Badge label={session.status} variant={session.status} />
@@ -60,7 +60,7 @@ export default function PractitionerDashboardPage() {
           <p className="mb-3 font-medium text-slate-800">Flagged clients</p>
           <div className="space-y-3 text-sm">
             {flaggedClients.map((client) => (
-              <div key={client.id} className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2">
+              <div key={client.id} className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
                 <p className="font-medium text-slate-800">{client.name}</p>
                 <p className="text-slate-600">{client.flags.join(" • ")}</p>
               </div>
@@ -73,7 +73,7 @@ export default function PractitionerDashboardPage() {
         <p className="mb-3 font-medium text-slate-800">Recent activity</p>
         <div className="space-y-2 text-sm text-slate-700">
           {activityFeed.slice(0, 6).map((item) => (
-            <div key={item.id} className="rounded-md bg-slate-50 px-3 py-2">
+            <div key={item.id} className="rounded-lg bg-slate-50 px-3 py-2">
               <p>{item.message}</p>
               <p className="text-xs text-slate-500">{item.date}</p>
             </div>

@@ -34,8 +34,10 @@ export default function ClientCheckinPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-slate-800">Weekly Check-in</h1>
+    <div className="mx-auto w-full max-w-6xl space-y-6">
+      <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Weekly Check-in</h1>
+      </div>
 
       <Card className="space-y-4">
         {questions.map((question, index) => (
@@ -46,10 +48,10 @@ export default function ClientCheckinPage() {
                 <button
                   key={option.label}
                   onClick={() => setAnswer(index, option.value)}
-                  className={`rounded-md px-3 py-1.5 text-sm ${
+                  className={`rounded-lg px-3 py-1.5 text-sm ${
                     answers[index] === option.value
                       ? "bg-sage-600 text-white"
-                      : "bg-slate-100 text-slate-700"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                   }`}
                 >
                   {option.label}
@@ -59,7 +61,7 @@ export default function ClientCheckinPage() {
           </div>
         ))}
 
-        <button onClick={handleSubmit} className="rounded-md bg-sage-600 px-4 py-2 text-sm font-medium text-white">
+        <button onClick={handleSubmit} className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
           Submit check-in
         </button>
       </Card>

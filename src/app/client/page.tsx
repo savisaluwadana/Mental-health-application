@@ -28,12 +28,12 @@ export default function ClientDashboardPage() {
   const therapistName = therapists.find((t) => t.id === upcoming?.therapistId)?.name;
 
   return (
-    <div className="space-y-6">
-      <section>
-        <h1 className="text-2xl font-semibold text-slate-800">
+    <div className="mx-auto w-full max-w-6xl space-y-6">
+      <section className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">
           {getGreeting()}, {client?.name.split(" ")[0]}
         </h1>
-        <p className="text-sm text-slate-600">Your wellbeing snapshot for today is ready.</p>
+        <p className="mt-1 text-sm text-slate-600">Your wellbeing snapshot for today is ready.</p>
       </section>
 
       <div className="grid gap-4 md:grid-cols-3">
@@ -53,13 +53,13 @@ export default function ClientDashboardPage() {
         <Card>
           <p className="text-sm text-slate-500">Quick actions</p>
           <div className="mt-3 space-y-2 text-sm">
-            <Link href="/client/book" className="block rounded-md bg-sage-100 px-3 py-2 font-medium text-sage-700">
+            <Link href="/client/book" className="block rounded-lg bg-sage-100 px-3 py-2 font-medium text-sage-700 hover:bg-sage-200">
               Book a session
             </Link>
-            <Link href="/client/mood" className="block rounded-md bg-slate-100 px-3 py-2 text-slate-700">
+            <Link href="/client/mood" className="block rounded-lg bg-slate-100 px-3 py-2 text-slate-700 hover:bg-slate-200">
               Log mood now
             </Link>
-            <Link href="/client/checkin" className="block rounded-md bg-slate-100 px-3 py-2 text-slate-700">
+            <Link href="/client/checkin" className="block rounded-lg bg-slate-100 px-3 py-2 text-slate-700 hover:bg-slate-200">
               Submit weekly check-in
             </Link>
           </div>
@@ -76,7 +76,7 @@ export default function ClientDashboardPage() {
                 {upcoming.startTime} - {upcoming.endTime} • {upcoming.type} with {therapistName}
               </p>
             </div>
-            <Link href="/client/sessions" className="rounded-md bg-sage-600 px-4 py-2 text-sm font-medium text-white">
+            <Link href="/client/sessions" className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
               View sessions
             </Link>
           </div>
