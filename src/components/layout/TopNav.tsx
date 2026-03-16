@@ -1,6 +1,7 @@
 "use client";
 
 import { useAppContext } from "@/context/AppContext";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -33,23 +34,30 @@ export function TopNav() {
   };
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-stone-50/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
-        <div>
+        <Link href="/" className="rounded-lg px-2 py-1 hover:bg-white/80">
           <p className="text-xl font-semibold tracking-tight text-slate-800">MindCare Cloud</p>
           <p className="text-xs text-slate-500">Mental Health SaaS Platform</p>
-        </div>
+        </Link>
 
         <div className="flex items-center gap-3">
-          <div className="flex rounded-full bg-slate-200 p-1 text-sm">
+          <Link
+            href="/"
+            className="hidden rounded-lg border border-slate-300/90 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm hover:bg-slate-50 md:inline-flex"
+          >
+            Landing Page
+          </Link>
+
+          <div className="flex rounded-full border border-slate-200 bg-white/90 p-1 text-sm shadow-sm">
             <button
-              className={`rounded-full px-3 py-1 ${role === "practitioner" ? "bg-sage-600 text-white" : "text-slate-600"}`}
+              className={`rounded-full px-3 py-1 ${role === "practitioner" ? "bg-sage-600 text-white shadow-sm" : "text-slate-600"}`}
               onClick={() => applyRole("practitioner")}
             >
               Practitioner
             </button>
             <button
-              className={`rounded-full px-3 py-1 ${role === "client" ? "bg-sage-600 text-white" : "text-slate-600"}`}
+              className={`rounded-full px-3 py-1 ${role === "client" ? "bg-sage-600 text-white shadow-sm" : "text-slate-600"}`}
               onClick={() => applyRole("client")}
             >
               Client

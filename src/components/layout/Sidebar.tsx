@@ -43,8 +43,9 @@ export function Sidebar() {
 
   return (
     <>
-      <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white md:block">
-        <nav className="space-y-1 p-3">
+      <aside className="hidden w-64 shrink-0 md:block">
+        <div className="sticky top-20 rounded-2xl border border-slate-200/80 bg-white/90 p-2 shadow-[0_10px_30px_-20px_rgba(15,23,42,0.35)] backdrop-blur">
+          <nav className="space-y-1 p-2">
           {items.map((item) => {
             const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
             const Icon = item.icon;
@@ -52,9 +53,9 @@ export function Sidebar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${
+                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition ${
                   active
-                    ? "bg-sage-100 font-medium text-sage-700"
+                    ? "bg-sage-100 font-semibold text-sage-700"
                     : "text-slate-600 hover:bg-slate-100 hover:text-slate-800"
                 }`}
               >
@@ -63,10 +64,11 @@ export function Sidebar() {
               </Link>
             );
           })}
-        </nav>
+          </nav>
+        </div>
       </aside>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white px-2 py-2 md:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-2 py-2 backdrop-blur md:hidden">
         <div className="flex items-center justify-around gap-2">
           {items.map((item) => {
             const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -76,7 +78,7 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 className={`flex min-w-0 flex-col items-center gap-1 rounded-lg px-2 py-1 text-[11px] ${
-                  active ? "text-sage-700" : "text-slate-500"
+                  active ? "bg-sage-100 text-sage-700" : "text-slate-500"
                 }`}
               >
                 <Icon size={16} />

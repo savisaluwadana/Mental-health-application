@@ -111,7 +111,7 @@ export default function BookSessionPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto w-full max-w-5xl space-y-6">
       <h1 className="text-2xl font-semibold text-slate-800">Book Session</h1>
       <Card>
         <StepperBar steps={steps} currentStep={step} />
@@ -123,13 +123,20 @@ export default function BookSessionPage() {
             <p className="font-medium text-slate-800">Choose service</p>
             {["1:1 Therapy", "Mindfulness Coaching", "Follow-up Session"].map((item) => (
               <button
+                type="button"
                 key={item}
                 onClick={() => setService(item)}
                 className={`block w-full rounded-md border px-3 py-2 text-left ${
-                  service === item ? "border-sage-600 bg-sage-50" : "border-slate-200"
+                  service === item
+                    ? "border-sage-600 bg-sage-100 ring-2 ring-sage-600/20"
+                    : "border-slate-200 hover:border-slate-300"
                 }`}
+                aria-pressed={service === item}
               >
-                {item}
+                <span className="flex items-center justify-between gap-2">
+                  <span>{item}</span>
+                  {service === item ? <span className="text-xs font-semibold text-sage-700">Selected</span> : null}
+                </span>
               </button>
             ))}
           </div>
@@ -139,11 +146,15 @@ export default function BookSessionPage() {
           <div className="grid gap-3 md:grid-cols-2">
             {therapists.map((item) => (
               <button
+                type="button"
                 key={item.id}
                 onClick={() => handleTherapistChange(item.id)}
                 className={`rounded-md border p-3 text-left ${
-                  therapistId === item.id ? "border-sage-600 bg-sage-50" : "border-slate-200"
+                  therapistId === item.id
+                    ? "border-sage-600 bg-sage-100 ring-2 ring-sage-600/20"
+                    : "border-slate-200 hover:border-slate-300"
                 }`}
+                aria-pressed={therapistId === item.id}
               >
                 <p className="font-semibold text-slate-800">{item.name}</p>
                 <p className="text-sm text-slate-600">{item.specializations.join(" • ")}</p>
@@ -169,6 +180,7 @@ export default function BookSessionPage() {
             <div className="flex flex-wrap gap-2">
               {slots.map((value) => (
                 <button
+                  type="button"
                   key={value}
                   onClick={() => setSlot(value)}
                   disabled={occupiedSlots.has(value)}
@@ -208,6 +220,7 @@ export default function BookSessionPage() {
           <div className="space-y-3">
             <p className="text-sm text-slate-700">Simulated payment gateway for demo mode.</p>
             <button
+              type="button"
               onClick={submitBooking}
               disabled={done || !selectedSlotAvailable}
               className="rounded-md bg-sage-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-45"
@@ -228,10 +241,11 @@ export default function BookSessionPage() {
         {error && <p className="text-sm font-medium text-rose-700">{error}</p>}
 
         <div className="flex justify-between pt-2">
-          <button onClick={back} disabled={step === 0} className="rounded-md border px-3 py-2 text-sm disabled:opacity-40">
+          <button type="button" onClick={back} disabled={step === 0} className="rounded-md border px-3 py-2 text-sm disabled:opacity-40">
             Back
           </button>
           <button
+            type="button"
             onClick={next}
             disabled={step >= steps.length - 1 || (step === 2 && availableSlots.length === 0)}
             className="rounded-md bg-sage-600 px-3 py-2 text-sm text-white disabled:opacity-40"

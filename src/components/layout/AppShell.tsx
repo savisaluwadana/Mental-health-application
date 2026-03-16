@@ -14,11 +14,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 text-slate-700">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,#eef6f0_0%,#f8fafc_40%,#fafaf9_100%)] text-slate-700">
       <TopNav />
-      <div className="mx-auto flex max-w-7xl">
+      <div className="mx-auto flex w-full max-w-7xl gap-4 px-2 md:px-4">
         <Sidebar />
-        <main className="w-full p-4 pb-24 md:p-6 md:pb-6">{children}</main>
+        <main className="w-full p-4 pb-24 md:p-6 md:pb-8">{children}</main>
       </div>
     </div>
   );
