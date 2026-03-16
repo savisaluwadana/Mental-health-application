@@ -64,6 +64,12 @@ export default function ClientSessionsPage() {
       </div>
 
       <div className="space-y-3">
+        {filtered.length === 0 && (
+          <Card>
+            <p className="text-sm text-slate-600">No sessions in this filter yet.</p>
+          </Card>
+        )}
+
         {filtered.map((session) => {
           const therapist = therapists.find((item) => item.id === session.therapistId);
           return (
@@ -78,14 +84,12 @@ export default function ClientSessionsPage() {
                 <div className="flex items-center gap-2">
                   <Badge label={session.status} variant={session.status} />
                   <Badge label={session.type} variant={session.type === "Video" ? "video" : "inperson"} />
-                  {session.status === "completed" && (
-                    <button
-                      onClick={() => setSelectedSessionId(session.id)}
-                      className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700"
-                    >
-                      View Summary
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setSelectedSessionId(session.id)}
+                    className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-700"
+                  >
+                    View Details
+                  </button>
                 </div>
               </div>
             </Card>
@@ -93,7 +97,7 @@ export default function ClientSessionsPage() {
         })}
       </div>
 
-      <Drawer open={Boolean(selected)} title="Session Summary" onClose={() => setSelectedSessionId(null)}>
+      <Drawer open={Boolean(selected)} title="Session Details" onClose={() => setSelectedSessionId(null)}>
         {selected ? (
           <div className="space-y-3 text-sm text-slate-700">
             <p>
@@ -105,6 +109,12 @@ export default function ClientSessionsPage() {
             <p>
               <span className="font-medium">Therapist:</span>{" "}
               {therapists.find((item) => item.id === selected.therapistId)?.name}
+            </p>
+            <p>
+              <span className="font-medium">Status:</span> {selected.status}
+            </p>
+            <p>
+              <span className="font-medium">Type:</span> {selected.type}
             </p>
             <p>
               <span className="font-medium">Summary:</span> {selected.summary ?? "No summary available yet."}

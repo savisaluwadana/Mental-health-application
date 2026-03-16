@@ -10,12 +10,19 @@ const hours = Array.from({ length: 13 }, (_, index) => 8 + index);
 
 const formatHour = (hour: number) => `${hour.toString().padStart(2, "0")}:00`;
 
+const getLocalDate = () => {
+  const now = new Date();
+  const offsetMs = now.getTimezoneOffset() * 60 * 1000;
+  return new Date(now.getTime() - offsetMs).toISOString().slice(0, 10);
+};
+
 export default function PractitionerSchedulePage() {
   const { sessions, clients, activeTherapistId, addSession } = useAppContext();
   const [open, setOpen] = useState(false);
   const [clientId, setClientId] = useState(clients[0]?.id ?? "c1");
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(getLocalDate());
   const [time, setTime] = useState("10:00");
+  const [error, setError] = useState<string | null>(null);
 
   const weekDates = useMemo(() => {
     const now = new Date();
@@ -35,7 +42,20 @@ export default function PractitionerSchedulePage() {
     (session) => session.therapistId === activeTherapistId && weekDates.includes(session.date),
   );
 
+  const hasConflict = sessions.some(
+    (session) =>
+      session.therapistId === activeTherapistId &&
+      session.date === date &&
+      session.startTime === time &&
+      session.status !== "missed",
+  );
+
   const addNewSession = () => {
+    if (hasConflict) {
+      setError("That time is already booked. Please choose another time.");
+      return;
+    }
+
     const endHour = `${Math.min(Number(time.slice(0, 2)) + 1, 23)}`.padStart(2, "0");
     addSession({
       clientId,
@@ -46,6 +66,7 @@ export default function PractitionerSchedulePage() {
       type: "Video",
       status: "upcoming",
     });
+    setError(null);
     setOpen(false);
   };
 
@@ -118,6 +139,7 @@ export default function PractitionerSchedulePage() {
               type="date"
               className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
               value={date}
+              min={getLocalDate()}
               onChange={(e) => setDate(e.target.value)}
             />
           </label>
@@ -128,11 +150,22 @@ export default function PractitionerSchedulePage() {
               type="time"
               className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
               value={time}
-              onChange={(e) => setTime(e.target.value)}
+              step={3600}
+              onChange={(e) => {
+                setTime(e.target.value);
+                setError(null);
+              }}
             />
           </label>
 
-          <button onClick={addNewSession} className="rounded-md bg-sage-600 px-4 py-2 text-white">
+          {hasConflict && <p className="text-sm font-medium text-rose-700">That time is already booked.</p>}
+          {error && <p className="text-sm font-medium text-rose-700">{error}</p>}
+
+          <button
+            onClick={addNewSession}
+            disabled={hasConflict}
+            className="rounded-md bg-sage-600 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-45"
+          >
             Save session
           </button>
         </div>
