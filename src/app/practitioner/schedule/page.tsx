@@ -71,17 +71,17 @@ export default function PractitionerSchedulePage() {
   };
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-slate-800">Weekly Schedule</h1>
-        <button onClick={() => setOpen(true)} className="rounded-md bg-sage-600 px-4 py-2 text-sm font-medium text-white">
+    <div className="mx-auto w-full max-w-6xl space-y-5">
+      <div className="flex items-center justify-between rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Weekly Schedule</h1>
+        <button onClick={() => setOpen(true)} className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm">
           Add Session
         </button>
       </div>
 
       <Card className="overflow-x-auto p-0">
         <div className="min-w-[860px]">
-          <div className="grid grid-cols-8 border-b border-slate-200 bg-slate-50 text-sm font-medium text-slate-600">
+          <div className="grid grid-cols-8 border-b border-slate-200 bg-slate-50/80 text-sm font-medium text-slate-600">
             <div className="p-3">Time</div>
             {days.map((day, index) => (
               <div key={day} className="border-l border-slate-200 p-3">
@@ -103,7 +103,7 @@ export default function PractitionerSchedulePage() {
                 return (
                   <div key={`${dayDate}-${hour}`} className="min-h-16 border-b border-l border-slate-200 p-1.5">
                     {block ? (
-                      <div className="rounded-md bg-sage-100 p-2 text-xs text-slate-700">
+                      <div className="rounded-lg bg-sage-100 p-2 text-xs text-slate-700">
                         <p className="font-medium">{client?.name}</p>
                         <p>{block.startTime} - {block.endTime}</p>
                       </div>
@@ -164,7 +164,7 @@ export default function PractitionerSchedulePage() {
           <button
             onClick={addNewSession}
             disabled={hasConflict}
-            className="rounded-md bg-sage-600 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-45"
+            className="rounded-lg bg-sage-600 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-45"
           >
             Save session
           </button>

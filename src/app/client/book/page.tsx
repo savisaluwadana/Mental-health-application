@@ -112,7 +112,9 @@ export default function BookSessionPage() {
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-6">
-      <h1 className="text-2xl font-semibold text-slate-800">Book Session</h1>
+      <div className="rounded-2xl border border-slate-200/70 bg-white/80 p-5 shadow-sm">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-800">Book Session</h1>
+      </div>
       <Card>
         <StepperBar steps={steps} currentStep={step} />
       </Card>
@@ -223,14 +225,14 @@ export default function BookSessionPage() {
               type="button"
               onClick={submitBooking}
               disabled={done || !selectedSlotAvailable}
-              className="rounded-md bg-sage-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-45"
+              className="rounded-lg bg-sage-600 px-4 py-2 text-sm font-medium text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-45"
             >
               Pay and Confirm
             </button>
             {done && (
               <div className="space-y-2">
                 <p className="text-sm font-medium text-emerald-700">Payment successful. Session confirmed.</p>
-                <Link href="/client/sessions" className="inline-block rounded-md border border-slate-300 px-4 py-2 text-sm text-slate-700">
+                <Link href="/client/sessions" className="inline-block rounded-lg border border-slate-300 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
                   View My Sessions
                 </Link>
               </div>

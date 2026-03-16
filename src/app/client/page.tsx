@@ -13,13 +13,24 @@ const getGreeting = () => {
 };
 
 export default function ClientDashboardPage() {
-  const { clients, moods, sessions, activeClientId, therapists } = useAppContext();
+  const { clients, moods, sessions, checkIns, activeClientId, therapists } = useAppContext();
   const client = clients.find((item) => item.id === activeClientId);
+  const clientSessions = sessions.filter((session) => session.clientId === activeClientId);
+  const completedSessions = clientSessions.filter((session) => session.status === "completed").length;
+
   const moodSeries = moods
     .filter((item) => item.clientId === activeClientId)
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(-14)
     .map((item) => item.score);
+
+  const recentMoodAverage = moodSeries.length
+    ? (moodSeries.reduce((sum, value) => sum + value, 0) / moodSeries.length).toFixed(1)
+    : "0.0";
+
+  const latestCheckIn = checkIns
+    .filter((item) => item.clientId === activeClientId)
+    .sort((a, b) => b.date.localeCompare(a.date))[0];
 
   const upcoming = sessions
     .filter((session) => session.clientId === activeClientId && session.status === "upcoming")
@@ -35,6 +46,27 @@ export default function ClientDashboardPage() {
         </h1>
         <p className="mt-1 text-sm text-slate-600">Your wellbeing snapshot for today is ready.</p>
       </section>
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <Card>
+          <p className="text-xs text-slate-500">Wellbeing score</p>
+          <p className="text-2xl font-semibold text-slate-800">{client?.wellbeingScore ?? 0}/100</p>
+        </Card>
+        <Card>
+          <p className="text-xs text-slate-500">Completed sessions</p>
+          <p className="text-2xl font-semibold text-slate-800">{completedSessions}</p>
+        </Card>
+        <Card>
+          <p className="text-xs text-slate-500">Mood avg (14 days)</p>
+          <p className="text-2xl font-semibold text-slate-800">{recentMoodAverage}/5</p>
+        </Card>
+        <Card>
+          <p className="text-xs text-slate-500">Latest check-in</p>
+          <p className="text-2xl font-semibold text-slate-800">
+            {latestCheckIn ? latestCheckIn.totalScore : "—"}
+          </p>
+        </Card>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="md:col-span-2">
